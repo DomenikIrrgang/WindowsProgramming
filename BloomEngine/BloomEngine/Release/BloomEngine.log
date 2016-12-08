@@ -1,0 +1,7 @@
+﻿  BERender.cpp
+  BloomEngine.cpp
+  Input.cpp
+  WindowsSize.cpp
+Input.obj : error LNK2005: "unsigned long __stdcall Set_Controller_State_Stub(unsigned long,struct _XINPUT_STATE *)" (?Set_Controller_State_Stub@@YGKKPAU_XINPUT_STATE@@@Z) already defined in BloomEngine.obj
+Input.obj : error LNK2005: "unsigned long __stdcall Get_Controller_State_Stub(unsigned long,struct _XINPUT_STATE *)" (?Get_Controller_State_Stub@@YGKKPAU_XINPUT_STATE@@@Z) already defined in BloomEngine.obj
+C:\Users\306004\documents\visual studio 2015\Projects\BloomEngine\Release\BloomEngine.exe : fatal error LNK1169: one or more multiply defined symbols found
