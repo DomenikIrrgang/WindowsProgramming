@@ -1,6 +1,8 @@
 #include "BESound.h"
 #include <math.h>
 
+//TEST
+
 WAVEFORMATEX* GetWaveFormat(int32 samplesPerSecond)
 {
 	waveFormat = {};
