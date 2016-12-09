@@ -1,4 +1,5 @@
 #include "BEInput.h"
+#include "BESound.h"
 
 X_INPUT_GET_STATE(Get_Controller_State_Stub)
 {
@@ -39,7 +40,8 @@ void HandleKeyEvent(uint32 event, uint32 keycode, bool32 isDown, bool32 wasDown)
 
 		case 'S':
 		{
-
+			secondarySoundBuffer.tone -= 100;
+			secondarySoundBuffer.wavePeriod = secondarySoundBuffer.samplesPerSecond / secondarySoundBuffer.tone;
 		} break;
 
 		case 'D':

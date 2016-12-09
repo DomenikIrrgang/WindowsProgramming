@@ -9,7 +9,9 @@ INT CALLBACK wWinMain(HINSTANCE instance, HINSTANCE previousInstance, PWSTR comm
 	ResizeDIBSection(&defaultRender, 1280, 720);
 	if (window)
 	{
-		InitSound(window, 48000, 48000*sizeof(int16)*2);
+		InitSound(window, &primarySoundBuffer, &secondarySoundBuffer, 48000);
+		LockAndWriteBuffer(&secondarySoundBuffer, 0, secondarySoundBuffer.size);
+		secondarySoundBuffer.buffer->Play(0, 0, DSBPLAY_LOOPING);
 		ShowWindow(window, showCode);
 		RunMessageLoop(window);
 	}
@@ -33,6 +35,11 @@ void RunMessageLoop(HWND window)
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
+
+
+		// TODO: Just test sound
+		WriteSoundToBuffer(&secondarySoundBuffer);
+		// TODO: Just testing redering
 		HDC context = GetDC(window);
 		WindowSize windowSize = GetWindowSize(window);
 		RenderGradient(&defaultRender, xOffset, yOffset);

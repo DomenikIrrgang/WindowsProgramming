@@ -22,5 +22,8 @@
 #define uint32 unsigned int
 #define uint16 unsigned short
 #define bool32 int32
+#define real32 float
+#define real64 double
+#define pi32 3.14159265359f
 
 #endif
