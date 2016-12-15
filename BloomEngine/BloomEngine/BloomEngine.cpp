@@ -22,7 +22,7 @@ INT CALLBACK wWinMain(HINSTANCE instance, HINSTANCE previousInstance, PWSTR comm
 	WNDCLASS windowClass = RegisterWindowClass(L"BLOOM ENGINE WINDOW CLASS", instance);
 	HWND window = CreateBloomEngineWindow(windowClass, L"BloomEngine", NULL, instance);
 	InitRender(&defaultRender);
-	ResizeDIBSection(&defaultRender, 1280, 720);
+	ResizeDIBSection(&defaultRender, 1920, 1080);
 	if (window)
 	{
 		//InitSound(window, &primarySoundBuffer, &secondarySoundBuffer, 48000);

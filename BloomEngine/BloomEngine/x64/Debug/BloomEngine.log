@@ -1,3 +1,25 @@
-﻿  BESound.cpp
-  BloomEngine.vcxproj -> C:\Users\306004\Documents\Personal\WindowsProgramming\BloomEngine\x64\Debug\BloomEngine.exe
-  BloomEngine.vcxproj -> C:\Users\306004\Documents\Personal\WindowsProgramming\BloomEngine\x64\Debug\BloomEngine.pdb (Full PDB)
+﻿Build started 15.12.2016 20:45:15.
+     1>Project "C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\BloomEngine\BloomEngine.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt BERender.cpp
+         BERender.cpp
+     1>BERender.cpp(140): warning C4091: 'typedef ' : ignored on left of 'Square' when no variable is declared
+     1>BERender.cpp(156): warning C4091: 'typedef ' : ignored on left of 'Color' when no variable is declared
+     1>BERender.cpp(213): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>BERender.cpp(221): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>BERender.cpp(244): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>BERender.cpp(248): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>BERender.cpp(250): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>BERender.cpp(252): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\x64\Debug\BloomEngine.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\x64\Debug\BloomEngine.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\x64\Debug\BloomEngine.lib" /MACHINE:X64 x64\Debug\BERender.obj
+         x64\Debug\BESound.obj
+         x64\Debug\BloomEngine.obj
+         x64\Debug\BEInput.obj
+         x64\Debug\WindowsSize.obj
+         BloomEngine.vcxproj -> C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\x64\Debug\BloomEngine.exe
+     1>Done Building Project "C:\Users\Domenik Irrgang\Documents\BloomEngine\DrawingTests\windowsprogramming\BloomEngine\BloomEngine\BloomEngine.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.51
