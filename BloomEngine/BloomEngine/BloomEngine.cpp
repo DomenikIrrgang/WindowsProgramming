@@ -1,4 +1,20 @@
 #include "BloomEngine.h"
+#include <stdio.h>
+
+int32 xOffset = 0;
+int32 yOffset = 0;
+
+extern Render defaultRender;
+
+void GoRight(int32 isDown, int32 wasDown)
+{
+	xOffset += 3;
+}
+
+void GoLeft(int32 isDown, int32 wasDown)
+{
+	xOffset -= 3;
+}
 
 INT CALLBACK wWinMain(HINSTANCE instance, HINSTANCE previousInstance, PWSTR commandLine, int showCode)
 {
@@ -9,9 +25,16 @@ INT CALLBACK wWinMain(HINSTANCE instance, HINSTANCE previousInstance, PWSTR comm
 	ResizeDIBSection(&defaultRender, 1280, 720);
 	if (window)
 	{
-		InitSound(window, &primarySoundBuffer, &secondarySoundBuffer, 48000);
-		LockAndWriteBuffer(&secondarySoundBuffer, 0, secondarySoundBuffer.size);
-		secondarySoundBuffer.buffer->Play(0, 0, DSBPLAY_LOOPING);
+		//InitSound(window, &primarySoundBuffer, &secondarySoundBuffer, 48000);
+		//LockAndWriteBuffer(&secondarySoundBuffer, 0, secondarySoundBuffer.size);
+		//secondarySoundBuffer.buffer->Play(0, 0, DSBPLAY_LOOPING);
+		InitInput();
+		KeyboardInput keyboardInput = {};
+		keyboardInput.key = 'T';
+		RegisterKeyboardInput(keyboardInput, GoRight);
+		keyboardInput.key = 'K';
+		keyboardInput.alt = 1;
+		RegisterKeyboardInput(keyboardInput, GoLeft);
 		ShowWindow(window, showCode);
 		RunMessageLoop(window);
 	}
@@ -22,8 +45,7 @@ void RunMessageLoop(HWND window)
 {
 	MSG message = { };
 	running = true;
-	int32 xOffset = 0;
-	int32 yOffset = 0;
+	void* test = RunMessageLoop;
 	while (running)
 	{
 		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
@@ -38,15 +60,13 @@ void RunMessageLoop(HWND window)
 
 
 		// TODO: Just test sound
-		WriteSoundToBuffer(&secondarySoundBuffer);
+		//WriteSoundToBuffer(&secondarySoundBuffer);
 		// TODO: Just testing redering
 		HDC context = GetDC(window);
 		WindowSize windowSize = GetWindowSize(window);
 		RenderGradient(&defaultRender, xOffset, yOffset);
 		RenderClientArea(&defaultRender, windowSize, context);
 		ReleaseDC(window, context);
-		xOffset++;
-		yOffset++;
 	}
 }
 
@@ -65,8 +85,8 @@ WNDCLASS RegisterWindowClass(const wchar_t className[], HINSTANCE instanceHandle
 HWND CreateBloomEngineWindow(WNDCLASS windowClass, LPCTSTR windowTitle, HWND parent, HINSTANCE instanceHandle)
 {
 	WindowSize size;
-	size.height = 200;
-	size.width = 200;
+	size.height = 720;
+	size.width = 1280;
 	size.x = 100;
 	size.y = 100;
 	HWND window = CreateWindowEx(
@@ -122,16 +142,7 @@ LRESULT CALLBACK MainWindowCallback(HWND window, UINT message, WPARAM wParam, LP
 		case WM_KEYDOWN:
 		case WM_KEYUP:
 		{
-			uint32 vkCode = wParam;
-			bool32 wasDown = (lParam & (1 << 30));
-			bool32 isDown = (lParam & (1 << 31));
-			HandleKeyEvent(message, vkCode, isDown, wasDown);
-
-			bool32 altKeyDown = (lParam & (1 << 29));
-			if (vkCode == VK_F4 && altKeyDown)
-			{
-				running = false;
-			}
+			HandleKeyEvent(message, wParam, lParam);
 		} break;
 
 		default:

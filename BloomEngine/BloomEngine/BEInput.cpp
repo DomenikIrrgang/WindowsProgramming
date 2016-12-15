@@ -1,5 +1,12 @@
 #include "BEInput.h"
 #include "BESound.h"
+#include <stdio.h>
+
+bool32 altKeyDown = 0;
+bool32 ctrlKeyDown = 0;
+bool32 shiftKeyDown = 0;
+Keybind keybinds[20];
+int32 keybindCount;
 
 X_INPUT_GET_STATE(Get_Controller_State_Stub)
 {
@@ -14,6 +21,20 @@ X_INPUT_SET_STATE(Set_Controller_State_Stub)
 global Get_Controller_State* GetControllerState = Get_Controller_State_Stub;
 global Set_Controller_State* SetControllerState = Set_Controller_State_Stub;
 
+void InitInput(void)
+{
+	keybindCount = 0;
+	LoadXInput();
+}
+
+void RegisterKeyboardInput(KeyboardInput keyboardInput, KeyboardInputCallback callback)
+{
+	Keybind keybind;
+	keybind.callback = callback;
+	keybind.keyboardInput = keyboardInput;
+	keybinds[keybindCount++] = keybind;
+}
+
 void LoadXInput(void)
 {
 	HMODULE xInputLibary = LoadLibraryA("xinput9_1_0.dll");
@@ -24,37 +45,48 @@ void LoadXInput(void)
 	}
 }
 
-void HandleKeyEvent(uint32 event, uint32 keycode, bool32 isDown, bool32 wasDown)
+void HandleKeyEvent(uint32 event, WPARAM wParam, LPARAM lParam)
 {
-	switch (keycode)
+	uint32 vkCode = wParam;
+	bool32 keydown = 0;
+	bool32 wasDown = (lParam & (1 << 30));
+	bool32 isDown = (lParam & (1 << 31));
+
+	if (event == WM_KEYDOWN || event == WM_SYSKEYDOWN)
 	{
-		case 'W':
-		{
-
-		} break;
-
-		case 'A':
-		{
-
-		} break;
-
-		case 'S':
-		{
-			secondarySoundBuffer.tone -= 100;
-			secondarySoundBuffer.wavePeriod = secondarySoundBuffer.samplesPerSecond / secondarySoundBuffer.tone;
-		} break;
-
-		case 'D':
-		{
-
-		} break;
-
-		default:
-		{
-
-		} break;
-
+		keydown = 1;
 	}
+
+	if (vkCode == BE_SHIFT)
+	{
+		shiftKeyDown = keydown;
+		return;
+	}
+
+	if (vkCode == BE_ALT)
+	{
+		altKeyDown = keydown;
+		return;
+	}
+
+	if (vkCode == BE_CTRL)
+	{
+		ctrlKeyDown = keydown;
+		return;
+	}
+
+	for (int32 index = 0; index < keybindCount; index++)
+	{
+		KeyboardInput keyboardInput = keybinds[index].keyboardInput;
+		if (keyboardInput.alt == altKeyDown && keyboardInput.ctrl == ctrlKeyDown && keyboardInput.shift == shiftKeyDown && keyboardInput.key == vkCode)
+		{
+			keybinds[index].callback(isDown, wasDown);
+
+		}
+	}
+	char str[256];
+	sprintf_s(str, "Key: %d \n", vkCode);
+	OutputDebugStringA(str);
 }
 
 internal void PullAllControllers(void)
